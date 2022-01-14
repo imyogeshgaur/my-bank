@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vistor Management System</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1 style="text-align: center">VISITOR MANAGEMENT SYSTEM</h1>
+    <div id="contact">
+      <h3 style="text-align: center;">Enter User's Details</h3>
+      <fieldset>
+        <input placeholder="User's name" type="text" required id="nameOfUser" />
+      </fieldset>
+      <fieldset>
+        <input placeholder="User's Email Address" type="email" required id="userEmail" autocomplete="none" />
+      </fieldset>
+      <fieldset>
+        <input placeholder="User's Phone Number" type="tel" required id="userPhone" autocomplete="none" />
+      </fieldset>
+      <fieldset>
+        <input placeholder="User's Age" type="text" required id="userAge" autocomplete="none" />
+      </fieldset>
+      <fieldset>
+        <select id="userGender" name="cars">
+          <option value="" disabled selected hidden>User's Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Others">Others</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <input placeholder="User Person Of Contact (POC)" type="text" required id="POCC" />
+      </fieldset>
+      <fieldset>
+        <input placeholder="POC's Contact" type="text" required id="POC" />
+      </fieldset>
+      <div class="btnContainer">
+        <button name="submit1" type="submit1" id="submit1 " data-submit="...Sending" onclick="handleSubmit()">
+          Submit Details
+        </button>
+        <button name="submit2" type="submit2" id="submit2" data-submit="...Sending">
+          Search User
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="js/index.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCRxy2heXgXqX2FORCrr0MWPSH6O41vclA",
+      authDomain: "mini-vms.firebaseapp.com",
+      projectId: "mini-vms",
+      storageBucket: "mini-vms.appspot.com",
+      messagingSenderId: "236879834643",
+      appId: "1:236879834643:web:416df9aa4b06ecf00259e6",
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</body>
+
+</html>
