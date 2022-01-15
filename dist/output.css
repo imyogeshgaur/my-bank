@@ -527,10 +527,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.5rem;
 }
 
-.block{
-  display: block;
-}
-
 .inline-block{
   display: inline-block;
 }
@@ -539,20 +535,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
-.inline-flex{
-  display: inline-flex;
-}
-
 .hidden{
   display: none;
 }
 
 .min-h-screen{
   min-height: 100vh;
-}
-
-.w-full{
-  width: 100%;
 }
 
 .transform{
@@ -579,21 +567,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-radius: 0.5rem;
 }
 
-.rounded-md{
-  border-radius: 0.375rem;
-}
-
 .border{
   border-width: 1px;
 }
 
-.border-transparent{
-  border-color: transparent;
+.border-2{
+  border-width: 2px;
 }
 
-.border-gray-300{
+.border-solid{
+  border-style: solid;
+}
+
+.border-black{
   --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-gray-500{
@@ -611,11 +599,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
-.bg-red-600{
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-75{
   --tw-bg-opacity: 0.75;
 }
@@ -628,11 +611,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-3{
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}
-
-.py-2{
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .pt-4{
@@ -663,48 +641,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   vertical-align: bottom;
 }
 
-.text-lg{
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.text-base{
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.font-medium{
-  font-weight: 500;
-}
-
-.leading-6{
-  line-height: 1.5rem;
-}
-
-.text-gray-900{
+.text-black{
   --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.text-white{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-gray-700{
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .shadow-xl{
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-sm{
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -735,6 +679,10 @@ body {
   background: radial-gradient(rgb(0, 119, 255),aqua)
 }
 
+fieldset{
+  width: 100%;
+}
+
 .container {
   max-width: 600px;
   width: 100%;
@@ -750,16 +698,20 @@ fieldset{
   width: 100%;
 }
 
-#contact input[type="text"],
-#contact input[type="email"],
-#contact input[type="tel"],
-#contact input[type="url"],
-#contact textarea,
-#contact button[type="submit"] {
+input[type="text"],
+ input[type="email"],
+ input[type="tel"],
+ input[type="url"],
+ textarea,
+ button[type="submit"] {
   font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
 }
 
-#modal{
+#modalToDelete{
+  display: none;
+}
+
+#modalToUpdate{
   display: none;
 }
 
@@ -776,7 +728,15 @@ fieldset{
   margin-top: 2rem;
 }
 
-#contact h3 {
+.updates{
+  padding: 25px;
+  margin: 20px 0;
+  margin-top: 0.6rem;
+  width: 27rem;
+  display: none;
+}
+
+h3 {
   display: block;
   font-size: 30px;
   font-weight: 300;
@@ -784,7 +744,7 @@ fieldset{
   color:black
 }
 
-#contact h4 {
+h4 {
   margin: 5px 0 15px;
   display: block;
   font-size: 13px;
@@ -795,12 +755,12 @@ select:focus{
   outline: none;
 }
 
-#contact input[type="text"],
-#contact input[type="email"],
-#contact input[type="tel"],
-#contact input[type="url"],
-#contact select,
-#contact textarea {
+input[type="text"],
+ input[type="email"],
+ input[type="tel"],
+ input[type="url"],
+ select,
+ textarea {
   width: 100%;
   border: 1px solid #ccc;
   background: #FFF;
@@ -809,27 +769,27 @@ select:focus{
   padding: 10px;
 }
 
-#contact select{
+select{
   color: #888;
 }
 
-#contact select:focus{
+select:focus{
   color: black;
 }
 
-#contact input[type="text"]:hover,
-#contact input[type="email"]:hover{
+input[type="text"]:hover,
+input[type="email"]:hover{
   transition: border-color 0.3s ease-in-out;
   border: 1px solid #aaa;
 }
 
-#contact textarea {
+textarea {
   height: 100px;
   max-width: 100%;
   resize: none;
 }
 
-#contact button[type="submit1"] {
+button[type="submit1"] {
   cursor: pointer;
   width: 50%;
   border: none;
@@ -841,13 +801,13 @@ select:focus{
   border-radius: 15px;
 }
 
-#contact button[type="submit1"]:hover {
+button[type="submit1"]:hover {
   background: linear-gradient(rgb(136, 243, 94),rgb(46, 235, 131));
   transition: background-color 0.3s ease-in-out;
   color: black;
 }
 
-#contact button[type="submit2"] {
+button[type="submit2"] {
   cursor: pointer;
   width: 50%;
   border: none;
@@ -860,13 +820,13 @@ select:focus{
   border-radius: 15px;
 }
 
-#contact button[type="submit2"]:hover{
+button[type="submit2"]:hover{
   background: linear-gradient(rgb(98, 34, 247),rgb(147, 121, 241));
   transition: background-color 0.3s ease-in-out;
   color: #FFF;
 }
 
-#contact button[type="submit3"] {
+button[type="submit3"] {
   cursor: pointer;
   width: 100%;
   border: none;
@@ -878,13 +838,13 @@ select:focus{
   border-radius: 15px;
 }
 
-#contact button[type="submit3"]:hover {
+button[type="submit3"]:hover {
   background: linear-gradient(rgb(240, 93, 93),rgb(255, 0, 0));
   transition: background-color 0.3s ease-in-out;
   color: #fff;
 }
 
-#contact button[type="submit4"] {
+button[type="submit4"] {
   cursor: pointer;
   width: 50%;
   border: none;
@@ -896,13 +856,13 @@ select:focus{
   border-radius: 15px;
 }
 
-#contact button[type="submit4"]:hover {
+button[type="submit4"]:hover {
   background: linear-gradient(rgb(136, 243, 94),rgb(46, 235, 131));
   transition: background-color 0.3s ease-in-out;
   color: black;
 }
 
-#contact button[type="submit5"] {
+button[type="submit5"] {
   cursor: pointer;
   width: 50%;
   border: none;
@@ -915,13 +875,13 @@ select:focus{
   border-radius: 15px;
 }
 
-#contact button[type="submit5"]:hover{
+button[type="submit5"]:hover{
   background: linear-gradient(rgb(98, 34, 247),rgb(147, 121, 241));
   transition: background-color 0.3s ease-in-out;
   color: #FFF;
 }
 
-#contact button[type="submit6"] {
+button[type="submit6"] {
   cursor: pointer;
   width: 100%;
   border: none;
@@ -934,29 +894,29 @@ select:focus{
   border-radius: 15px;
 }
 
-#contact button[type="submit6"]:hover{
+button[type="submit6"]:hover{
   background: linear-gradient(rgb(212, 124, 230),rgb(207, 2, 248));
   transition: background-color 0.3s ease-in-out;
   color: #000;
 }
 
-#contact button[type="submit1"]:active {
+button[type="submit1"]:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-#contact button[type="submit2"]:active {
+button[type="submit2"]:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-#contact button[type="submit3"]:active {
+button[type="submit3"]:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-#contact button[type="submit4"]:active {
+button[type="submit4"]:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-#contact button[type="submit5"]:active {
+button[type="submit5"]:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
@@ -964,8 +924,8 @@ select:focus{
   text-align: center;
 }
 
-#contact input:focus,
-#contact textarea:focus {
+input:focus,
+ textarea:focus {
   outline: 0;
   border: 1px solid #aaa;
 }
@@ -1018,6 +978,178 @@ h1{
   display: flex;
 }
 
+.btnToDeleteUser{
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border-width: 1px;
+  border-color: transparent;
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.btnToDeleteUser:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.btnToDeleteUser:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity));
+  --tw-ring-offset-width: 2px;
+}
+
+@media (min-width: 640px){
+  .btnToDeleteUser{
+    margin-left: 0.75rem;
+  }
+
+  .btnToDeleteUser{
+    width: auto;
+  }
+
+  .btnToDeleteUser{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+.btnToUpdateUser{
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border-width: 1px;
+  border-color: transparent;
+  --tw-bg-opacity: 1;
+  background-color: rgb(202 138 4 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.btnToUpdateUser:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.btnToUpdateUser:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(249 115 22 / var(--tw-ring-opacity));
+  --tw-ring-offset-width: 2px;
+}
+
+@media (min-width: 640px){
+  .btnToUpdateUser{
+    margin-left: 0.75rem;
+  }
+
+  .btnToUpdateUser{
+    width: auto;
+  }
+
+  .btnToUpdateUser{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+.btnToCancelModal{
+  margin-top: 0.75rem;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.btnToCancelModal:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+.btnToCancelModal:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(99 102 241 / var(--tw-ring-opacity));
+  --tw-ring-offset-width: 2px;
+}
+
+@media (min-width: 640px){
+  .btnToCancelModal{
+    margin-top: 0px;
+  }
+
+  .btnToCancelModal{
+    margin-left: 0.75rem;
+  }
+
+  .btnToCancelModal{
+    width: auto;
+  }
+
+  .btnToCancelModal{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
 @media screen and (max-width:300px) {
   .container {
     width: 50px;
@@ -1028,41 +1160,6 @@ h1{
   .primary{
     margin-top:0px;
   }
-}
-
-.hover\:bg-red-700:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-gray-50:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
-
-.focus\:outline-none:focus{
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.focus\:ring-2:focus{
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.focus\:ring-red-500:focus{
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-indigo-500:focus{
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(99 102 241 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-offset-2:focus{
-  --tw-ring-offset-width: 2px;
 }
 
 @media (min-width: 640px){
@@ -1079,10 +1176,6 @@ h1{
     margin-left: 1rem;
   }
 
-  .sm\:ml-3{
-    margin-left: 0.75rem;
-  }
-
   .sm\:block{
     display: block;
   }
@@ -1093,10 +1186,6 @@ h1{
 
   .sm\:w-full{
     width: 100%;
-  }
-
-  .sm\:w-auto{
-    width: auto;
   }
 
   .sm\:max-w-lg{
@@ -1134,10 +1223,5 @@ h1{
 
   .sm\:align-middle{
     vertical-align: middle;
-  }
-
-  .sm\:text-sm{
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
 }
