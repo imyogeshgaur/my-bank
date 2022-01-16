@@ -217,7 +217,7 @@ input[type="email"]:hover{
 
  button[type="submit5"] {
   cursor: pointer;
-  width: 50%;
+  width: 100%;
   border: none;
   background: linear-gradient(rgb(248, 141, 2),rgb(255, 230, 0));
   color: #000;

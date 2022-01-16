@@ -51,122 +51,19 @@
         <label style="color: black">POC</label>
         <input type="text" id="pocOfUser" />
       </fieldset>
-      <div class="btnContainer">
-        <button name="submit5" type="submit5" id="submit5" data-submit="...Sending" onclick="Update()">
-          Update User
-        </button>
-        <button name="submit4" type="submit4" id="submit4" data-submit="...Sending" onclick="Delete()">
-          Delete User
+        <button name="submit5" type="submit5" id="submit5" data-submit="...Sending" onclick="genQR()">
+          Generate QR
         </button>
       </div>
-    </div>
-    <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
-      id="modalToDelete">
-      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div
-          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <div class="sm:flex sm:items-start">
-              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                <h3 style="text-align: center;">
-                  Enter the Email or Phone
-                </h3>
-                <div class="mt-2">
-                  <input type="text" style="width: 100%;
-                  border: 1px solid #ccc;
-                  background: #FFF;
-                  color: black;
-                  margin: 0 5px;" size="100px" id="emailPhoneDelete" autocomplete="none">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button type="button" class="btnToDeleteUser" onclick="deleteData();">
-              Delete
-            </button>
-            <button type="button" class="btnToCancelModal" onclick="deleteModal()">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
-      id="modalToUpdate">
-      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div
-          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <div class="sm:flex sm:items-start">
-              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                <h3 style="text-align: center;">
-                  Enter the Email or Phone
-                </h3>
-                <fieldset>
-                  <input placeholder="Email or Phone" type="email" required id="detail" autocomplete="none"
-                    class="text-black border-2 border-solid border-black" style="width: 100%;" />
-                </fieldset>
-                <button name="submit3" type="submit3" id="submit3 " data-submit="...Sending" onclick="checkUpdateUser()"
-                  style="margin-top: 1.4rem;">
-                  Check For User
-                </button>
-                <div class="updates">
-                  <h3 style="text-align: center;">Provide Updated Details</h3>
-                  <fieldset>
-                    <input placeholder="Updated name" type="text" required id="updatedName"
-                      class="text-black border-2 border-solid border-black" style="width: 100%;" />
-                  </fieldset>
-                  <fieldset>
-                    <input placeholder="Updated Email Address" type="email" required id="updatedEmail"
-                      autocomplete="none" class="text-black border-2 border-solid border-black" style="width: 100%;" />
-                  </fieldset>
-                  <fieldset>
-                    <input placeholder="Upadated Phone Number" type="tel" required id="updatedPhone" autocomplete="none"
-                      class="text-black border-2 border-solid border-black" style="width: 100%;" />
-                  </fieldset>
-                  <fieldset>
-                    <input placeholder="Upadated Age" type="text" required id="updatedAge" autocomplete="none"
-                      class="text-black border-2 border-solid border-black" style="width: 100%;" />
-                  </fieldset>
-                  <fieldset>
-                    <select id="updatedGender">
-                      <option value="" disabled selected hidden>Upadted Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Others">Others</option>
-                    </select>
-                  </fieldset>
-                  <fieldset>
-                    <input placeholder="Updated Person Of Contact (POC)" type="text" required id="updatedPOC" />
-                  </fieldset>
-                  <fieldset>
-                    <input placeholder="Updated POC's Contact" type="text" required id="updatedPOCC">
-                  </fieldset>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button type="button" class="btnToUpdateUser" onclick="updateData();">
-              Update
-            </button>
-            <button type="button" class="btnToCancelModal" onclick="deleteModal()">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div id="qr"  class="mt-20 ml-50"></div>
   </div>
+  
   </div>
   <script src="js/details.js"></script>
-
+  <script src="js/qr.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCRxy2heXgXqX2FORCrr0MWPSH6O41vclA",
@@ -179,5 +76,4 @@
     firebase.initializeApp(firebaseConfig);
   </script>
 </body>
-
 </html>

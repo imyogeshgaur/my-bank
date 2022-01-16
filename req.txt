@@ -1,0 +1,159 @@
+//Modal 
+
+ <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
+      id="modalToDelete">
+      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div
+          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <h3 style="text-align: center;">
+                  Enter the Email or Phone
+                </h3>
+                <div class="mt-2">
+                  <input type="text" style="width: 100%;
+                  border: 1px solid #ccc;
+                  background: #FFF;
+                  color: black;
+                  margin: 0 5px;" size="100px" id="emailPhoneDelete" autocomplete="none">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button type="button" class="btnToDeleteUser" onclick="deleteData();">
+              Delete
+            </button>
+            <button type="button" class="btnToCancelModal" onclick="deleteModal()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+//Detail.js
+
+const checkUpdateUser = async () => {
+  const detail = document.querySelector("#emailPhoneUpdate").value;
+  const updates = document.querySelector(".updates");
+  try {
+    const db = firebase.firestore();
+    const usersRef1 = await db.collection("users").where("userEmail", "==", detail).get();
+    const usersRef2 = await db.collection("users").where("userPhone", "==", detail).get();
+    if (!detail) {
+      alert("Please Enter Some Value !!!")
+    } else if (usersRef1.empty && usersRef2.empty) {
+      alert("User Not Found !!!!");
+      document.querySelector("#detail").value = " ";
+      location.reload();
+    } else {
+      updates.style.display = "block";
+      usersRef1.forEach(doc=>{
+        document.querySelector('#updatedEmail').value = doc.data().userEmail;
+        document.querySelector('#updatedPhone').value = doc.data().userPhone;
+      });
+      usersRef2.forEach(doc=>{
+        document.querySelector('#updatedEmail').value = doc.data().userEmail;
+        document.querySelector('#updatedPhone').value = doc.data().userPhone;
+      });
+    }
+  } catch (error) {
+    alert("Internal Server Error !!!");
+    console.log(error);
+  }
+};
+const updateData = async () => {
+  const updatedName = document.querySelector('#updatedName').value;
+  const updatedEmail = document.querySelector('#updatedEmail').value;
+  const updatedPhone = document.querySelector('#updatedPhone').value;
+  const updatedAge = document.querySelector('#updatedAge').value;
+  const updatedGender = document.querySelector('#updatedGender').value;
+  const updatedPOC = document.querySelector('#updatedPOC').value;
+  const updatedPOCC = document.querySelector('#updatedPOCC').value;
+  const modalToUpdate = document.getElementById("modalToUpdate");
+  try {
+    const db = firebase.firestore();
+    const userRef1 = await db.collection("users").where("userEmail", "==", updatedEmail).get();
+    const userRef2 = await db.collection("users").where("userPhone", "==", updatedPhone).get();
+    if (userRef1.empty && userRef2.empty) {
+      alert("User Not Found !!!!");
+      document.querySelector("#detail").value = " ";
+      location.reload();
+    } else {
+    await userRef1.forEach(doc => {
+        db.collection("users").doc(doc.id).update({
+        userName: updatedName,
+        userEmail: updatedEmail,
+        userPhone: updatedPhone,
+        userAge: updatedAge,
+        userGender: updatedGender,
+        POC: updatedPOC,
+        POCC: updatedPOCC
+      });
+    });
+    await userRef2.forEach(doc => {
+      db.collection("users").doc(doc.id).update({
+        userName: updatedName,
+        userEmail: updatedEmail,
+        userPhone: updatedPhone,
+        userAge: updatedAge,
+        userGender: updatedGender,
+        POC: updatedPOC,
+        POCC: updatedPOCC
+      });
+    })
+    alert("Details Updated Sucessfully !!!");
+    location.reload();
+    modalToUpdate.style.display = "none";
+    userRef1.forEach(doc=>{
+      console.log(doc.data().id);
+    })
+    
+  }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const deleteData = async () => {
+  const modalToDelete = document.getElementById('modalToDelete');
+  const value = document.getElementById('emailPhoneDelete').value;
+  try {
+    const db = firebase.firestore();
+    const userRef1 = await db.collection("users").where("userEmail", "==", value).get();
+    const userRef2 = await db.collection("users").where("userPhone", "==", value).get();
+    userRef1.forEach(doc => {
+      doc.ref.delete();
+    });
+    userRef2.forEach(doc => {
+      doc.ref.delete();
+    });
+    alert("User Deleted Sucessfully !!!");
+    modalToDelete.style.display = "none";
+    location.href = "index.html"
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const deleteModal = () => {
+  const modalToDelete = document.getElementById('modalToDelete');
+  modalToDelete.style.display = "none";
+  const modalToUpdate = document.getElementById('modalToUpdate');
+  modalToUpdate.style.display = "none";
+}
+
+const Delete = ()=> {
+  const modalToDelete = document.getElementById('modalToDelete');
+  modalToDelete.style.display = "block"
+}
+
+const Update = () =>{
+  const modalToUpdae = document.getElementById('modalToUpdate');
+  modalToUpdae.style.display = "block"
+}
+
+
