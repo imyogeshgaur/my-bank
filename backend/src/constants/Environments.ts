@@ -1,6 +1,7 @@
 import { resolve, join } from 'path'
 import { config } from 'dotenv'
-config({ path: resolve("backend/src/.env") })
+config({ path: resolve("src/.env") })
+
 
 namespace EnvironmentVariables {
     export const DATABASE_URI = process.env.DATABASE_URI;
