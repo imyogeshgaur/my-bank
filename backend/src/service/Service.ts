@@ -289,7 +289,11 @@ namespace Service {
                             }
                         })
                         if (findAdminByEmail) {
-                            const message = Helper.forgetPasswordMail(email as string, findAdminByEmail.adminId);
+                            const message = Helper.forgetPasswordMail(
+                                email as string,
+                                findAdminByEmail.userNameOfAdmin as string | "User",
+                                findAdminByEmail.adminId
+                            );
                             return message;
                         } else {
                             return 0;
@@ -301,7 +305,11 @@ namespace Service {
                             }
                         })
                         if (findCustomerByEmail) {
-                            const message = Helper.forgetPasswordMail(email as string, findCustomerByEmail.customerId);
+                            const message = Helper.forgetPasswordMail(
+                                email as string,
+                                findCustomerByEmail.userNameOfAdmin as string | "User",
+                                findCustomerByEmail.customerId
+                            );
                             return message;
                         } else {
                             return 0;
@@ -315,8 +323,10 @@ namespace Service {
                             }
                         })
                         if (findAdminByUserName) {
-                            const message = Helper.forgetPasswordMail (                
-                                findAdminByUserName.emailOfAdmin as string, findAdminByUserName.adminId
+                            const message = Helper.forgetPasswordMail(
+                                findAdminByUserName.emailOfAdmin as string,
+                                email as string,
+                                findAdminByUserName.adminId
                             );
                             return message;
                         } else {
@@ -329,8 +339,10 @@ namespace Service {
                             }
                         })
                         if (findCustomerByUserName) {
-                            const message = Helper.forgetPasswordMail(                 
-                                findCustomerByUserName.emailOfCustomer as string, findCustomerByUserName.adminId
+                            const message = Helper.forgetPasswordMail(
+                                findCustomerByUserName.emailOfCustomer as string,
+                                email as string,
+                                findCustomerByUserName.adminId
                             );
                             return message;
                         } else {
@@ -343,9 +355,34 @@ namespace Service {
             }
         }
 
-        async resetPasswordForUser() {
+        async resetPasswordForUser(token: any, password: string) {
             try {
-
+                const userId = Helper.decodeOnlineUsers(token);
+                const newPassword = await hash(password, 12);
+                const isAdminNeedToUpdatePassword: any = await this.admin.findOne({
+                    where: {
+                        adminId: userId
+                    }
+                })
+                if (isAdminNeedToUpdatePassword) {
+                    const adminNeedToUpdatePassword: any = await this.admin.update({
+                        passwordOfAdmin: newPassword,
+                    }, {
+                        where: {
+                            adminId: userId
+                        }
+                    });
+                    return adminNeedToUpdatePassword;
+                } else {
+                    const customerNeedToUpdatePassword: any = await this.customer.update({
+                        passwordOfCustomer: newPassword,
+                    }, {
+                        where: {
+                            customerId: userId
+                        }
+                    });
+                    return customerNeedToUpdatePassword;
+                }
             } catch (error) {
                 console.log(`Auth's Service Error : ${error}`)
             }

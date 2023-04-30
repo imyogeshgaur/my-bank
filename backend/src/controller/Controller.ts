@@ -28,6 +28,8 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
@@ -36,6 +38,8 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
@@ -44,6 +48,8 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
@@ -52,6 +58,8 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
@@ -60,6 +68,8 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
     }
@@ -83,6 +93,8 @@ namespace Controller {
                 return this.res.status(201).send({ message: "Admin Created Successfully !!!", admin })
             } catch (error) {
                 console.log(`Auth's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
@@ -93,6 +105,8 @@ namespace Controller {
                 return this.res.status(201).send({ message: "User Created Successfully !!!", user })
             } catch (error) {
                 console.log(`Auth's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
@@ -103,6 +117,7 @@ namespace Controller {
                 return this.res.status(200).send(adminData);
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
             }
         }
 
@@ -111,6 +126,7 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
             }
         }
 
@@ -119,6 +135,7 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
             }
         }
 
@@ -127,6 +144,8 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
@@ -135,6 +154,7 @@ namespace Controller {
 
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
             }
         }
     }
@@ -164,24 +184,36 @@ namespace Controller {
                 }
             } catch (error) {
                 console.log(`Auth's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
         async forgetPasswordForUser() {
             try {
-                const data:DTO.ForgetPassword<string> = this.req.body;
+                const data: DTO.ForgetPassword<string> = this.req.body;
                 const message = await this.service.forgetPasswordForUser(data);
                 return this.res.status(200).send(message);
             } catch (error) {
                 console.log(`Auth's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
+
             }
         }
 
         async resetPasswordForUser() {
             try {
-
+                const token: any = this.req.headers.authorization;
+                const password:string = await this.req.body.password;
+                const isReset: Array<number> = await this.service.resetPasswordForUser(token,password);
+                if (isReset[0]) {
+                    return this.res.status(200).send({ message: "Password Reset Successfully !!!" })
+                } else {
+                    return this.res.status(200).send({ message: "Password Not Reset Successfully !!!" })
+                }
             } catch (error) {
                 console.log(`Auth's Controller Error : ${error}`)
+                return this.res.status(500).send({ message: "Internal Server Error !!!" })
             }
         }
     }

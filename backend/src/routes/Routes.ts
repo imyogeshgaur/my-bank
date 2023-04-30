@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express"
 import Controller from "../controller/Controller";
+import MiddleWare from "../middleware/Middleware";
 
 namespace Routes {
     export const userRouter = Router();
@@ -7,7 +8,7 @@ namespace Routes {
     export const authRoutes = Router();
 
     //* User Routes
-    userRouter.get("/personalDetails", async (req: Request, res: Response) => {
+    userRouter.get("/personalDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const userController = new Controller.UserController(req, res)
             await userController.getPersonalDetails();
@@ -16,7 +17,7 @@ namespace Routes {
         }
     })
 
-    userRouter.get("/loanDetail", async (req: Request, res: Response) => {
+    userRouter.get("/loanDetail",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const userController = new Controller.UserController(req, res)
             await userController.getLoanDetails();
@@ -25,7 +26,7 @@ namespace Routes {
         }
     })
 
-    userRouter.get("/accountDetail", async (req: Request, res: Response) => {
+    userRouter.get("/accountDetail",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const userController = new Controller.UserController(req, res)
             await userController.getAccountDetails();
@@ -34,7 +35,7 @@ namespace Routes {
         }
     })
 
-    userRouter.post("/applyCard", async (req: Request, res: Response) => {
+    userRouter.post("/applyCard",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const userController = new Controller.UserController(req, res)
             await userController.applyForCard();
@@ -43,7 +44,7 @@ namespace Routes {
         }
     })
 
-    userRouter.post("/applyLoan", async (req: Request, res: Response) => {
+    userRouter.post("/applyLoan",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const userController = new Controller.UserController(req, res)
             await userController.applyForLoan();
@@ -52,7 +53,7 @@ namespace Routes {
         }
     })
 
-    userRouter.post("/applyAccount", async (req: Request, res: Response) => {
+    userRouter.post("/applyAccount",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const userController = new Controller.UserController(req, res)
             await userController.applyForAccount();
@@ -62,7 +63,7 @@ namespace Routes {
     })
 
     //? Admin Routes
-    adminRoutes.get("/detailOfCustomers", async (req: Request, res: Response) => {
+    adminRoutes.get("/detailOfCustomers",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.getAllCustomersDetail();
@@ -71,7 +72,7 @@ namespace Routes {
         }
     })
 
-    adminRoutes.delete("/deleteCustomer/:id", async (req: Request, res: Response) => {
+    adminRoutes.delete("/deleteCustomer/:id",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.deleteCustomerData();
@@ -80,7 +81,7 @@ namespace Routes {
         }
     })
 
-    adminRoutes.put("/changePersonalDetails", async (req: Request, res: Response) => {
+    adminRoutes.put("/changePersonalDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.changePersonalDetailOfCustomer();
@@ -89,7 +90,7 @@ namespace Routes {
         }
     })
 
-    adminRoutes.put("/changeAccountDetails", async (req: Request, res: Response) => {
+    adminRoutes.put("/changeAccountDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.changeAccountDetails();
@@ -98,7 +99,7 @@ namespace Routes {
         }
     })
 
-    adminRoutes.put("/changeLoanDetails", async (req: Request, res: Response) => {
+    adminRoutes.put("/changeLoanDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.changeLoanDetailOfCustomer();
@@ -114,7 +115,7 @@ namespace Routes {
             console.log(`Global Error : ${error}`)
         }
     })
-    adminRoutes.post("/create", async (req: Request, res: Response) => {
+    adminRoutes.post("/create",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.signUpUser();
@@ -144,7 +145,7 @@ namespace Routes {
         }
     })
 
-    authRoutes.post("/resetPassword", async (req: Request, res: Response) => {
+    authRoutes.post("/resetPassword",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const authController = new Controller.AuthController(req, res);
             await authController.resetPasswordForUser();

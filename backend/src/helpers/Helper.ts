@@ -22,7 +22,7 @@ namespace Helper {
         }
     }
 
-    export async function forgetPasswordMail(receiverMail: string, uuid: string) {
+    export async function forgetPasswordMail(receiverMail: string,userName:string, uuid: string) {
         try {
             const info = await myTransport.sendMail({
                 from: EnvironmentVariables.MAIL_ID,
@@ -33,7 +33,7 @@ namespace Helper {
                 <head>
                 </head>
                 <body>
-                    <p> Dear User, </p>   
+                    <p> Dear ${userName}, </p>   
                     <p>There was a request to change your password!
                     <br>
                     If you did not make this request then please ignore this email.
