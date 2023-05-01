@@ -54,7 +54,9 @@ namespace Service {
         async applyForLoan(data: DTO.Loan<object>, token: any) {
             try {
                 const userId = Helper.decodeOnlineUsers(token);
+                const loanId = v1();
                 const newLoan = await this.loan.create({
+                    loanId,
                     ...data,
                     customerId: userId
                 })
@@ -110,8 +112,9 @@ namespace Service {
             }
         }
 
-        async getAllCustomersDetail(id: string) {
+        async getAllCustomersDetail(token: any) {
             try {
+                const id = Helper.decodeOnlineUsers(token);
                 const adminData = await this.admin.findAll({
                     where: {
                         adminId: id
@@ -129,9 +132,8 @@ namespace Service {
             }
         }
 
-        async changePersonalDetailOfCustomer(token: any, data: DTO.Personal<string>) {
+        async changePersonalDetailOfCustomer(userId: string, data: DTO.Personal<string>) {
             try {
-                const userId: string | undefined = Helper.decodeOnlineUsers(token);
                 const isChanged = await this.customer.update({
                     ...data
                 }, {
@@ -145,9 +147,8 @@ namespace Service {
             }
         }
 
-        async changeLoanDetailOfCustomer(token: any, data: DTO.Loan<object>) {
+        async changeLoanDetailOfCustomer(userId: string, data: DTO.Loan<object>) {
             try {
-                const userId: string | undefined = Helper.decodeOnlineUsers(token);
                 const isChanged = await this.loan.update({
                     ...data
                 }, {
@@ -163,12 +164,35 @@ namespace Service {
 
         async deleteCustomerData(userId: string) {
             try {
-                const isDeleted = await this.customer.destroy({
+                const isLoanExist = await this.loan.findAll({
                     where: {
                         customerId: userId
                     }
-                });
-                return isDeleted;
+                })
+                if (isLoanExist.length == 0) {
+                    const isDeleted = await this.customer.destroy({
+                        where: {
+                            customerId: userId
+                        }
+                    });
+                    return isDeleted;
+                } else {
+                    const isLoanDeleted: any = await this.loan.destroy({
+                        where: {
+                            customerId: userId
+                        }
+                    });
+                    if (isLoanDeleted[0]) {
+                        const isDeleted = await this.customer.destroy({
+                            where: {
+                                customerId: userId
+                            }
+                        });
+                        return isDeleted;
+                    } else {
+                        return 0
+                    }
+                }
             } catch (error) {
                 console.log(`Admin's Service Error : ${error}`)
             }

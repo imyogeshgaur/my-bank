@@ -89,8 +89,8 @@ namespace Controller {
 
         async getAllCustomersDetail() {
             try {
-                const id = "8aa7caf0-e722-11ed-9cef-d148d62c68c6";
-                const adminData = await this.service.getAllCustomersDetail(id);
+                const token = this.req.headers.authorization;
+                const adminData = await this.service.getAllCustomersDetail(token);
                 return this.res.status(200).send(adminData);
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
@@ -100,9 +100,9 @@ namespace Controller {
 
         async changePersonalDetailOfCustomer() {
             try {
-                const token: any = this.req.headers.authorization;
-                const data: DTO.Loan<object> = this.req.body;
-                const isChanged: any = await this.service.changePersonalDetailOfCustomer(data, token);
+                const userId: string = this.req.params.id;
+                const data: DTO.Personal<string> = this.req.body;
+                const isChanged: any = await this.service.changePersonalDetailOfCustomer(userId, data);
                 if (isChanged[0]) {
                     return this.res.status(200).send({ message: "Personal Details Updated !!!" })
                 } else {
@@ -116,9 +116,9 @@ namespace Controller {
 
         async changeLoanDetailOfCustomer() {
             try {
-                const token: any = this.req.headers.authorization;
+                const userId: string = this.req.params.id;
                 const data: DTO.Loan<object> = this.req.body;
-                const isChanged: any = await this.service.changeLoanDetailOfCustomer(data, token);
+                const isChanged: any = await this.service.changeLoanDetailOfCustomer(userId, data);
                 if (isChanged[0]) {
                     return this.res.status(200).send({ message: "Loan Details Updated !!!" })
                 } else {
@@ -134,7 +134,7 @@ namespace Controller {
             try {
                 const userId = this.req.params.id;
                 const isDeleted: any = await this.service.deleteCustomerData(userId);
-                if (isDeleted[0]) {
+                if (!isDeleted[0]) {
                     return this.res.status(200).send({ message: "User Deleted Successfully !!!" })
                 } else {
                     return this.res.status(200).send({ message: "User Not Deleted !!!" })

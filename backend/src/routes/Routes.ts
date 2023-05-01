@@ -54,7 +54,7 @@ namespace Routes {
         }
     })
 
-    adminRoutes.put("/changePersonalDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
+    adminRoutes.put("/changePersonalDetails/:id",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.changePersonalDetailOfCustomer();
@@ -63,7 +63,7 @@ namespace Routes {
         }
     })
 
-    adminRoutes.put("/changeLoanDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
+    adminRoutes.put("/changeLoanDetails/:id",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
             await adminController.changeLoanDetailOfCustomer();
