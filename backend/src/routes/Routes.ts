@@ -26,37 +26,10 @@ namespace Routes {
         }
     })
 
-    userRouter.get("/accountDetail",MiddleWare.authenticate, async (req: Request, res: Response) => {
-        try {
-            const userController = new Controller.UserController(req, res)
-            await userController.getAccountDetails();
-        } catch (error) {
-            console.log(`Global Error : ${error}`)
-        }
-    })
-
-    userRouter.post("/applyCard",MiddleWare.authenticate, async (req: Request, res: Response) => {
-        try {
-            const userController = new Controller.UserController(req, res)
-            await userController.applyForCard();
-        } catch (error) {
-            console.log(`Global Error : ${error}`)
-        }
-    })
-
     userRouter.post("/applyLoan",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const userController = new Controller.UserController(req, res)
             await userController.applyForLoan();
-        } catch (error) {
-            console.log(`Global Error : ${error}`)
-        }
-    })
-
-    userRouter.post("/applyAccount",MiddleWare.authenticate, async (req: Request, res: Response) => {
-        try {
-            const userController = new Controller.UserController(req, res)
-            await userController.applyForAccount();
         } catch (error) {
             console.log(`Global Error : ${error}`)
         }
@@ -90,15 +63,6 @@ namespace Routes {
         }
     })
 
-    adminRoutes.put("/changeAccountDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
-        try {
-            const adminController = new Controller.AdminController(req, res);
-            await adminController.changeAccountDetails();
-        } catch (error) {
-            console.log(`Global Error : ${error}`)
-        }
-    })
-
     adminRoutes.put("/changeLoanDetails",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
@@ -107,6 +71,7 @@ namespace Routes {
             console.log(`Global Error : ${error}`)
         }
     })
+
     adminRoutes.post("/signup", async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
@@ -115,6 +80,7 @@ namespace Routes {
             console.log(`Global Error : ${error}`)
         }
     })
+
     adminRoutes.post("/create",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const adminController = new Controller.AdminController(req, res);
@@ -145,7 +111,7 @@ namespace Routes {
         }
     })
 
-    authRoutes.post("/resetPassword",MiddleWare.authenticate, async (req: Request, res: Response) => {
+    authRoutes.post("/resetPassword/:id",MiddleWare.authenticate, async (req: Request, res: Response) => {
         try {
             const authController = new Controller.AuthController(req, res);
             await authController.resetPasswordForUser();

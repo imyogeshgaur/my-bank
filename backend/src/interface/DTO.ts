@@ -27,6 +27,9 @@ namespace DTO {
         nomineeDataOfCustomer: T | null;
         businessDataOfCustomer: T | null;
         landDetailsOfCustomer: T | null;
+        loanAmount: Number | null;
+        loanTimePeriod: Number | null;
+        loanInterestRate: Number | null;
     }
 
     export interface Login<T> {

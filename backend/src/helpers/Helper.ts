@@ -13,7 +13,7 @@ const myTransport = createTransport({
 
 namespace Helper {
 
-    export function decodeOnlineUsers(token: any) {
+    export function decodeOnlineUsers(token: any):string|undefined {
         try {
             const decodedVal: any = decode(token, { complete: true });
             return decodedVal?.payload.userId;

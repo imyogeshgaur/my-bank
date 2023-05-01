@@ -13,56 +13,53 @@ namespace Service {
 
         private customer;
         private loan;
-        private admin;
         constructor() {
             this.customer = Models.Customer;
             this.loan = Models.Loan;
-            this.admin = Models.Admin;
         }
 
-        async getPersonalDetails() {
+        async getPersonalDetails(token: any) {
             try {
-
+                const userId: string | undefined = Helper.decodeOnlineUsers(token);
+                const userToFind = this.customer.findOne({
+                    where: {
+                        customerId: userId
+                    }
+                })
+                return userToFind;
             } catch (error) {
                 console.log(`User's Service Error : ${error}`)
             }
         }
 
-        async getLoanDetails() {
+        async getLoanDetails(token: any) {
             try {
-
+                const userId: string | undefined = Helper.decodeOnlineUsers(token);
+                const loanData = await this.customer.findOne({
+                    where: {
+                        customerId: userId
+                    },
+                    include: [
+                        {
+                            model: this.loan
+                        }
+                    ]
+                })
+                return loanData;
             } catch (error) {
                 console.log(`User's Service Error : ${error}`)
             }
         }
 
-        async getAccountDetails() {
+        async applyForLoan(data: DTO.Loan<object>, token: any) {
             try {
-
-            } catch (error) {
-                console.log(`User's Service Error : ${error}`)
-            }
-        }
-
-        async applyForAccount() {
-            try {
-
-            } catch (error) {
-                console.log(`User's Service Error : ${error}`)
-            }
-        }
-
-        async applyForCard() {
-            try {
-
-            } catch (error) {
-                console.log(`User's Service Error : ${error}`)
-            }
-        }
-
-        async applyForLoan() {
-            try {
-
+                const userId = Helper.decodeOnlineUsers(token);
+                const newLoan = await this.loan.create({
+                    ...data,
+                    customerId: userId
+                })
+                const savedLoan = await newLoan.save();
+                return savedLoan;
             } catch (error) {
                 console.log(`User's Service Error : ${error}`)
             }
@@ -132,33 +129,46 @@ namespace Service {
             }
         }
 
-        async changePersonalDetailOfCustomer() {
+        async changePersonalDetailOfCustomer(token: any, data: DTO.Personal<string>) {
             try {
-
+                const userId: string | undefined = Helper.decodeOnlineUsers(token);
+                const isChanged = await this.customer.update({
+                    ...data
+                }, {
+                    where: {
+                        customerId: userId
+                    }
+                })
+                return isChanged
             } catch (error) {
                 console.log(`Admin's Service Error : ${error}`)
             }
         }
 
-        async changeLoanDetailOfCustomer() {
+        async changeLoanDetailOfCustomer(token: any, data: DTO.Loan<object>) {
             try {
-
+                const userId: string | undefined = Helper.decodeOnlineUsers(token);
+                const isChanged = await this.loan.update({
+                    ...data
+                }, {
+                    where: {
+                        customerId: userId
+                    }
+                })
+                return isChanged
             } catch (error) {
                 console.log(`Admin's Service Error : ${error}`)
             }
         }
 
-        async changeAccountDetails() {
+        async deleteCustomerData(userId: string) {
             try {
-
-            } catch (error) {
-                console.log(`Admin's Service Error : ${error}`)
-            }
-        }
-
-        async deleteCustomerData() {
-            try {
-
+                const isDeleted = await this.customer.destroy({
+                    where: {
+                        customerId: userId
+                    }
+                });
+                return isDeleted;
             } catch (error) {
                 console.log(`Admin's Service Error : ${error}`)
             }
@@ -355,9 +365,8 @@ namespace Service {
             }
         }
 
-        async resetPasswordForUser(token: any, password: string) {
+        async resetPasswordForUser(userId: any, password: string) {
             try {
-                const userId = Helper.decodeOnlineUsers(token);
                 const newPassword = await hash(password, 12);
                 const isAdminNeedToUpdatePassword: any = await this.admin.findOne({
                     where: {

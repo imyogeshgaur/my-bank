@@ -71,6 +71,18 @@ namespace Models {
         landDetailsOfCustomer: {
             type: DataTypes.JSON,
             allowNull: false
+        },
+        loanAmount: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        loanTimePeriod: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        loanInterestRate: {
+            type: DataTypes.FLOAT,
+            allowNull: false
         }
     })
 

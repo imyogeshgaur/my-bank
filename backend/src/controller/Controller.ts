@@ -17,7 +17,9 @@ namespace Controller {
 
         async getPersonalDetails() {
             try {
-
+                const token: any = this.req.headers.authorization;
+                const user = await this.service.getPersonalDetails(token);
+                return this.res.status(200).send({ user })
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
             }
@@ -25,37 +27,9 @@ namespace Controller {
 
         async getLoanDetails() {
             try {
-
-            } catch (error) {
-                console.log(`User's Controller Error : ${error}`)
-                return this.res.status(500).send({ message: "Internal Server Error !!!" })
-
-            }
-        }
-
-        async getAccountDetails() {
-            try {
-
-            } catch (error) {
-                console.log(`User's Controller Error : ${error}`)
-                return this.res.status(500).send({ message: "Internal Server Error !!!" })
-
-            }
-        }
-
-        async applyForAccount() {
-            try {
-
-            } catch (error) {
-                console.log(`User's Controller Error : ${error}`)
-                return this.res.status(500).send({ message: "Internal Server Error !!!" })
-
-            }
-        }
-
-        async applyForCard() {
-            try {
-
+                const token: any = this.req.headers.authorization;
+                const loanData = await this.service.getLoanDetails(token);
+                return this.res.status(200).send({ loanData })
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
                 return this.res.status(500).send({ message: "Internal Server Error !!!" })
@@ -65,7 +39,10 @@ namespace Controller {
 
         async applyForLoan() {
             try {
-
+                const token: any = this.req.headers.authorization;
+                const data: DTO.Loan<object> = this.req.body;
+                const loan = await this.service.applyForLoan(data, token);
+                return this.res.status(200).send({ loan });
             } catch (error) {
                 console.log(`User's Controller Error : ${error}`)
                 return this.res.status(500).send({ message: "Internal Server Error !!!" })
@@ -123,7 +100,14 @@ namespace Controller {
 
         async changePersonalDetailOfCustomer() {
             try {
-
+                const token: any = this.req.headers.authorization;
+                const data: DTO.Loan<object> = this.req.body;
+                const isChanged: any = await this.service.changePersonalDetailOfCustomer(data, token);
+                if (isChanged[0]) {
+                    return this.res.status(200).send({ message: "Personal Details Updated !!!" })
+                } else {
+                    return this.res.status(200).send({ message: "Personal Details not Updated !!!" })
+                }
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
                 return this.res.status(500).send({ message: "Internal Server Error !!!" })
@@ -132,26 +116,29 @@ namespace Controller {
 
         async changeLoanDetailOfCustomer() {
             try {
-
+                const token: any = this.req.headers.authorization;
+                const data: DTO.Loan<object> = this.req.body;
+                const isChanged: any = await this.service.changeLoanDetailOfCustomer(data, token);
+                if (isChanged[0]) {
+                    return this.res.status(200).send({ message: "Loan Details Updated !!!" })
+                } else {
+                    return this.res.status(200).send({ message: "Loan Details not Updated !!!" })
+                }
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
                 return this.res.status(500).send({ message: "Internal Server Error !!!" })
-            }
-        }
-
-        async changeAccountDetails() {
-            try {
-
-            } catch (error) {
-                console.log(`Admin's Controller Error : ${error}`)
-                return this.res.status(500).send({ message: "Internal Server Error !!!" })
-
             }
         }
 
         async deleteCustomerData() {
             try {
-
+                const userId = this.req.params.id;
+                const isDeleted: any = await this.service.deleteCustomerData(userId);
+                if (isDeleted[0]) {
+                    return this.res.status(200).send({ message: "User Deleted Successfully !!!" })
+                } else {
+                    return this.res.status(200).send({ message: "User Not Deleted !!!" })
+                }
             } catch (error) {
                 console.log(`Admin's Controller Error : ${error}`)
                 return this.res.status(500).send({ message: "Internal Server Error !!!" })
@@ -203,13 +190,13 @@ namespace Controller {
 
         async resetPasswordForUser() {
             try {
-                const token: any = this.req.headers.authorization;
-                const password:string = await this.req.body.password;
-                const isReset: Array<number> = await this.service.resetPasswordForUser(token,password);
+                const userId: any = this.req.params.id;
+                const password: string = await this.req.body.password;
+                const isReset: Array<number> = await this.service.resetPasswordForUser(userId, password);
                 if (isReset[0]) {
                     return this.res.status(200).send({ message: "Password Reset Successfully !!!" })
                 } else {
-                    return this.res.status(200).send({ message: "Password Not Reset Successfully !!!" })
+                    return this.res.status(200).send({ message: "Password Not Reset !!!" })
                 }
             } catch (error) {
                 console.log(`Auth's Controller Error : ${error}`)
